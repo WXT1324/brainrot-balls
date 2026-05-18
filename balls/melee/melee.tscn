@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://o6bcxf5lktkg"]
+
+[ext_resource type="PhysicsMaterial" uid="uid://btxw3rgon2ty5" path="res://default.tres" id="1_nqw4m"]
+[ext_resource type="Texture2D" uid="uid://v6yvqg0vg1bm" path="res://balls/unarmed/ballunarmed.png" id="3_nstsi"]
+[ext_resource type="FontFile" uid="uid://bxk0wce5574e7" path="res://font/DeterminationMonoWebRegular-Z5oq.ttf" id="4_12cei"]
+[ext_resource type="AudioStream" uid="uid://d6fedcxd2awx" path="res://sfx/collide.wav" id="5_8mpoq"]
+[ext_resource type="AudioStream" uid="uid://b8e07iartdf6e" path="res://sfx/player_damage.wav" id="6_lg55f"]
+[ext_resource type="Script" uid="uid://ppdle7j88tgn" path="res://balls/melee/sword.gd" id="7_8mpoq"]
+[ext_resource type="Texture2D" uid="uid://cf13bjho3h02h" path="res://balls/melee/sword.png" id="7_nstsi"]
+
+[sub_resource type="GDScript" id="GDScript_nstsi"]
+script/source = "extends ball
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o4elg"]
+radius = 30.066593
+
+[sub_resource type="Theme" id="Theme_nv11u"]
+default_font = ExtResource("4_12cei")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mpoq"]
+size = Vector2(137, 7)
+
+[node name="Melee" type="RigidBody2D" unique_id=1107406110 groups=["ball"]]
+collision_layer = 3
+collision_mask = 3
+physics_material_override = ExtResource("1_nqw4m")
+gravity_scale = 0.0
+custom_integrator = true
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 10
+script = SubResource("GDScript_nstsi")
+metadata/_custom_type_script = "uid://4xlm36coruip"
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=1229102105]
+texture = ExtResource("3_nstsi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1705914656]
+shape = SubResource("CircleShape2D_o4elg")
+
+[node name="HP" type="RichTextLabel" parent="." unique_id=220036558]
+offset_left = -23.0
+offset_top = -9.0
+offset_right = 23.0
+offset_bottom = 7.0
+theme = SubResource("Theme_nv11u")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]100"
+scroll_active = false
+
+[node name="collide" type="AudioStreamPlayer2D" parent="." unique_id=1119930692]
+stream = ExtResource("5_8mpoq")
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="." unique_id=1638075657]
+stream = ExtResource("6_lg55f")
+
+[node name="sword" type="RigidBody2D" parent="." unique_id=41897588 groups=["melee"]]
+collision_layer = 2
+collision_mask = 2
+mass = 0.001
+physics_material_override = ExtResource("1_nqw4m")
+gravity_scale = 0.0
+custom_integrator = true
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("7_8mpoq")
+metadata/_custom_type_script = "uid://c5cvcy1srfeve"
+
+[node name="Sword" type="Sprite2D" parent="sword" unique_id=706139134]
+position = Vector2(73, -1)
+scale = Vector2(2, 2)
+texture = ExtResource("7_nstsi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sword" unique_id=689254010]
+position = Vector2(61.5, -1.5)
+shape = SubResource("RectangleShape2D_8mpoq")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="." unique_id=1390294972]
+node_a = NodePath("..")
+node_b = NodePath("../sword")
+bias = 0.9

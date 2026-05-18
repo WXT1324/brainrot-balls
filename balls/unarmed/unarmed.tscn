@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://covjds3bkfob4"]
+
+[ext_resource type="Script" uid="uid://cyvpl8jc03hyp" path="res://balls/unarmed/unarmed.gd" id="1_1p0fq"]
+[ext_resource type="PhysicsMaterial" uid="uid://btxw3rgon2ty5" path="res://default.tres" id="1_3dlqi"]
+[ext_resource type="Texture2D" uid="uid://v6yvqg0vg1bm" path="res://balls/unarmed/ballunarmed.png" id="2_1p0fq"]
+[ext_resource type="FontFile" uid="uid://bxk0wce5574e7" path="res://font/DeterminationMonoWebRegular-Z5oq.ttf" id="3_x117b"]
+[ext_resource type="AudioStream" uid="uid://d6fedcxd2awx" path="res://sfx/collide.wav" id="4_swmic"]
+[ext_resource type="AudioStream" uid="uid://b8e07iartdf6e" path="res://sfx/player_damage.wav" id="5_sy0bg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x117b"]
+radius = 30.066593
+
+[sub_resource type="Theme" id="Theme_swmic"]
+default_font = ExtResource("3_x117b")
+
+[node name="unarmed" type="RigidBody2D" unique_id=342273841 groups=["ball"]]
+collision_layer = 3
+collision_mask = 3
+physics_material_override = ExtResource("1_3dlqi")
+gravity_scale = 0.0
+custom_integrator = true
+continuous_cd = 2
+contact_monitor = true
+max_contacts_reported = 10
+script = ExtResource("1_1p0fq")
+metadata/_custom_type_script = "uid://4xlm36coruip"
+
+[node name="sprite" type="Sprite2D" parent="." unique_id=884444424]
+texture = ExtResource("2_1p0fq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=130664323]
+shape = SubResource("CircleShape2D_x117b")
+
+[node name="HP" type="RichTextLabel" parent="." unique_id=309873923]
+offset_left = -23.0
+offset_top = -9.0
+offset_right = 23.0
+offset_bottom = 7.0
+theme = SubResource("Theme_swmic")
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "[center]100"
+scroll_active = false
+
+[node name="collide" type="AudioStreamPlayer2D" parent="." unique_id=1061588686]
+stream = ExtResource("4_swmic")
+
+[node name="hurt" type="AudioStreamPlayer2D" parent="." unique_id=1507227001]
+stream = ExtResource("5_sy0bg")

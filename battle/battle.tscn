@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://cryptl1kl5wt"]
+
+[ext_resource type="PackedScene" uid="uid://covjds3bkfob4" path="res://balls/unarmed/unarmed.tscn" id="1_mqutd"]
+[ext_resource type="Texture2D" uid="uid://dh0417vnjxi38" path="res://battle/bgball.png" id="1_tiqy5"]
+[ext_resource type="PackedScene" uid="uid://63mwya34ao0o" path="res://hpbar/hp_bar.tscn" id="3_qubjc"]
+[ext_resource type="PackedScene" uid="uid://csk3spkvud6rd" path="res://battle/camera.tscn" id="4_4mnim"]
+[ext_resource type="Script" uid="uid://bg38cmqmgmspy" path="res://battle/camera.gd" id="5_l1kiu"]
+[ext_resource type="PackedScene" uid="uid://o6bcxf5lktkg" path="res://balls/melee/melee.tscn" id="6_l1kiu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mqutd"]
+size = Vector2(20, 444)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qubjc"]
+size = Vector2(678, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6hnvb"]
+size = Vector2(689.75, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mnim"]
+size = Vector2(20, 373)
+
+[node name="Battle" type="Node2D" unique_id=1084968460]
+
+[node name="Camera2D" parent="." unique_id=848116162 groups=["camera"] instance=ExtResource("4_4mnim")]
+position = Vector2(320, 180)
+script = ExtResource("5_l1kiu")
+
+[node name="bg" type="CanvasLayer" parent="." unique_id=614665091]
+layer = -1
+
+[node name="Bgball" type="Sprite2D" parent="bg" unique_id=863099457]
+position = Vector2(320, 180)
+scale = Vector2(2, 2)
+texture = ExtResource("1_tiqy5")
+
+[node name="HPBar" parent="bg" unique_id=344497779 node_paths=PackedStringArray("selected_ball") instance=ExtResource("3_qubjc")]
+position = Vector2(114, 147)
+selected_ball = NodePath("../../unarmed")
+
+[node name="HPBar2" parent="bg" unique_id=768223211 node_paths=PackedStringArray("selected_ball") instance=ExtResource("3_qubjc")]
+position = Vector2(114, 269)
+selected_ball = NodePath("../../Melee")
+
+[node name="unarmed" parent="." unique_id=342273841 instance=ExtResource("1_mqutd")]
+position = Vector2(357, 184)
+damage = 10
+ball_speed = 400
+inital_direction = Vector2(-0.8, 0)
+
+[node name="Melee" parent="." unique_id=1860208328 instance=ExtResource("6_l1kiu")]
+position = Vector2(494, 286)
+ball_name = "sword"
+inital_direction = Vector2(0.9, -1)
+
+[node name="border" type="StaticBody2D" parent="." unique_id=1621032940]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border" unique_id=1390810540]
+position = Vector2(270, 211)
+shape = SubResource("RectangleShape2D_mqutd")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="border" unique_id=1333057241]
+position = Vector2(329, -10)
+shape = SubResource("RectangleShape2D_qubjc")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="border" unique_id=1547803844]
+position = Vector2(323, 370)
+shape = SubResource("RectangleShape2D_6hnvb")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="border" unique_id=540054152]
+position = Vector2(650, 189)
+shape = SubResource("RectangleShape2D_4mnim")

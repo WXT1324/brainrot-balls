@@ -1,10 +1,10 @@
 extends RigidBody2D
 class_name weapon_melee
 
-@onready var damage = get_parent().damage
+var damage = 10
 
 const collision_buffer = 0.05
-var collision_timer = 0.05
+var collision_timer = collision_buffer
 
 var hit_direction = 1
 

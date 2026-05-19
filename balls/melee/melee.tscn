@@ -10,6 +10,9 @@
 
 [sub_resource type="GDScript" id="GDScript_nstsi"]
 script/source = "extends ball
+
+func _ready(): 
+	$sword.damage = damage
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o4elg"]
@@ -31,6 +34,7 @@ continuous_cd = 2
 contact_monitor = true
 max_contacts_reported = 10
 script = SubResource("GDScript_nstsi")
+damage = 10
 metadata/_custom_type_script = "uid://4xlm36coruip"
 
 [node name="sprite" type="Sprite2D" parent="." unique_id=1229102105]

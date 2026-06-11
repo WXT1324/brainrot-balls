@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://b8e07iartdf6e" path="res://sfx/player_damage.wav" id="5_sy0bg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x117b"]
-radius = 30.066593
+radius = 31.016125
 
 [sub_resource type="Theme" id="Theme_swmic"]
 default_font = ExtResource("3_x117b")
@@ -18,10 +18,11 @@ collision_layer = 3
 collision_mask = 3
 physics_material_override = ExtResource("1_3dlqi")
 gravity_scale = 0.0
+lock_rotation = true
 custom_integrator = true
 continuous_cd = 2
 contact_monitor = true
-max_contacts_reported = 10
+max_contacts_reported = 100
 script = ExtResource("1_1p0fq")
 metadata/_custom_type_script = "uid://4xlm36coruip"
 

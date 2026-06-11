@@ -45,17 +45,14 @@ selected_ball = "sword"
 [node name="contenders" type="Node2D" parent="." unique_id=1215222763]
 
 [node name="unarmed" parent="contenders" unique_id=342273841 instance=ExtResource("1_mqutd")]
-position = Vector2(186, 198)
-max_contacts_reported = 100
-damage = 10
+position = Vector2(90, 190)
+damage = 4
 ball_speed = 400
-inital_direction = Vector2(-0.8, 0)
 
 [node name="Melee" parent="contenders" unique_id=1860208328 instance=ExtResource("6_l1kiu")]
-position = Vector2(82, 279)
+position = Vector2(270, 190)
 max_contacts_reported = 100
 ball_name = "sword"
-inital_direction = Vector2(0.9, -1)
 
 [node name="border" type="StaticBody2D" parent="." unique_id=1621032940]
 

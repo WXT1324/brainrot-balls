@@ -3,25 +3,26 @@ class_name weapon_melee
 
 var damage = 10
 
-const collision_buffer = 0.05
+const collision_buffer = 0.1
 var collision_timer = collision_buffer
 
-var hit_direction = 1
+@export var melee_direction = 1
+@export var weapon_rotation_velocity = 5.0
 
 func _physics_process(delta):
-	if collision_timer > 0.0: collision_timer -= delta
-
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	collision_timer -= delta
 	
-	angular_velocity = 5 * hit_direction
+	angular_velocity = weapon_rotation_velocity * melee_direction
 	
+func _integrate_forces(state):
 	for i in range(state.get_contact_count()):
 		var other: Object = state.get_contact_collider_object(i)
 		if other is Node and other.is_in_group("ball"):
 			if collision_timer <= 0.0: 
-				hit_direction = -hit_direction
+				melee_direction = -melee_direction
 				_collision_specifics(other)
 				collision_timer = collision_buffer
+	
 
 func _collision_specifics(other):
 	pass

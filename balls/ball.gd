@@ -14,36 +14,34 @@ var maxhp = hp
 @onready var sprite = get_node("sprite")
 
 @export var ball_speed = 200
-@export var inital_direction = Vector2(1,-1)
-@export var velocity = Vector2(ball_speed, ball_speed) * inital_direction
+@export var inital_direction = 0
 
-const collision_buffer = 0.1
+var velocity = Vector2(cos(inital_direction),sin(inital_direction)) * ball_speed
+
+const collision_buffer = 0.05
 var collision_timer = collision_buffer
 
 func _physics_process(delta):
 	var collision_info = move_and_collide(velocity * delta)
 	if collision_info:
+		var object = collision_info.get_collider()
 		$collide.play()
 		velocity = velocity.bounce(collision_info.get_normal())
 		
+		if collision_timer < 0.0: 
+			if object is Node and object.is_in_group("ball"):
+				_collision_specifics(object)
+			collision_timer = collision_buffer
+	
+	collision_timer -= delta
+	
 	hp_bar.text = "[center]" + str(hp)
-	print(collision_timer)
-	if collision_timer > 0.0: collision_timer -= delta
 
-func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
-		for i in range(state.get_contact_count()):
-			var other: Object = state.get_contact_collider_object(i)
-			if ball_name != "unarmed": continue
-			if other is Node and other.is_in_group("ball"):
-				if collision_timer <= 0.0: 
-					_collision_specifics(other)
-					collision_timer = collision_buffer
 
 func _collision_specifics(other):
 	pass
 	
 func _damage(amount):
-	print(name, hp)
 	hp -= amount
 	hurt_sfx.play()
 	
